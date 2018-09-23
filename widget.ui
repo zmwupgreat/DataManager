@@ -90,7 +90,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>输入数据</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_8">
@@ -103,7 +103,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>查询</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_9">
@@ -116,7 +116,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>删除</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_10">
@@ -129,7 +129,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>导入</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_11">
@@ -142,7 +142,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>备份</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_12">
@@ -155,7 +155,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>导出</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_13">
@@ -181,7 +181,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>打印</string>
     </property>
    </widget>
   </widget>

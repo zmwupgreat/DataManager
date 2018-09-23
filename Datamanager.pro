@@ -5,7 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += sql
+QT       += axcontainer
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Datamanager
@@ -24,8 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        widget.cpp
+        widget.cpp \
+    databasecontrol.cpp \
+    inputwidget.cpp
 
-HEADERS  += widget.h
+HEADERS  += widget.h \
+    struct_define.h \
+    databasecontrol.h \
+    inputwidget.h
 
-FORMS    += widget.ui
+FORMS    += widget.ui \
+    inputwidget.ui
