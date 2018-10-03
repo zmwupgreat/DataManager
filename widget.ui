@@ -28,26 +28,6 @@
    <property name="title">
     <string/>
    </property>
-   <widget class="QTreeView" name="treeView">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>140</y>
-      <width>281</width>
-      <height>611</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>350</y>
-      <width>851</width>
-      <height>361</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -80,7 +60,7 @@
      <string>数据管理系统</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_7">
+   <widget class="QToolButton" name="toolButtonInput">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -106,7 +86,7 @@
      <string>查询</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_9">
+   <widget class="QToolButton" name="toolButtonDelete">
     <property name="geometry">
      <rect>
       <x>280</x>
@@ -158,17 +138,17 @@
      <string>导出</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_13">
+   <widget class="QToolButton" name="toolButtonexit">
     <property name="geometry">
      <rect>
-      <x>980</x>
-      <y>60</y>
-      <width>141</width>
-      <height>51</height>
+      <x>1090</x>
+      <y>10</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>...</string>
+     <string>退出</string>
     </property>
    </widget>
    <widget class="QToolButton" name="toolButton_14">
@@ -182,6 +162,29 @@
     </property>
     <property name="text">
      <string>打印</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>350</y>
+      <width>851</width>
+      <height>361</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>281</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="columnCount">
+     <number>0</number>
     </property>
    </widget>
   </widget>

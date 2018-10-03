@@ -1,6 +1,12 @@
 ﻿#ifndef STRUCT_DEFINE_H
 #define STRUCT_DEFINE_H
-
+#include <QString>
+#if _MSC_VER >= 1571
+#pragma execution_character_set("utf-8")
+#endif
+/*
+ * 结构体定义
+ */
 typedef struct InfoData
 {
     QString ID;
@@ -11,7 +17,6 @@ typedef struct InfoData
     QString Birthtime;
     QString Address;
     QString Office;
-    QString ValidTime;
     QString Image;
 }InfoData;
 
