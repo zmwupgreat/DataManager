@@ -134,3 +134,20 @@ QVector<QString> DataBaseControl::getTimedata()
     DataBase.close();
     return Timevector;
 }
+/*
+ * 删除信息
+ */
+bool DataBaseControl::DeleteData(QString condition)
+{
+    if(!DataBase.isOpen())
+        DataBase.open();
+    QSqlQuery delquery;
+    QString SQLstr = QString("delete from DATAMANAGER where ");
+    SQLstr += condition;
+    bool ret = delquery.exec();
+    DataBase.close();
+    if(!ret)
+        return false;
+    else
+        return true;
+}

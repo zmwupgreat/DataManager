@@ -87,7 +87,56 @@ void Widget::btnExit()
  */
 void Widget::btnDelete()
 {
+    /*
+        QItemSelectionModel *selection=ui->tableView->selectionModel();
+        QModelIndexList selected=selection->selectedIndexes();
+        if(selected.size()<=0)
+        {
+            if(Treeitem_select)
+            {
 
+                int ok=QMessageBox::warning(this,QString("删除选定记录"),QString("是否确定删除当前日期下的%1条记录？").arg(QString::number(totalcount,10)),QMessageBox::Yes,QMessageBox::No);
+                if(ok==QMessageBox::No)
+                {
+                    return;
+                }
+                else
+                {
+                    QString temp=conditions.mid(4);
+                    data->deletedata(temp);
+                }
+
+            }
+            else
+            {
+                QMessageBox::information(this,QString("提示"),QString("请选择至少一条记录！"));
+                return;
+            }
+        }
+        else
+        {
+            int ok=QMessageBox::warning(this,QString("删除选定记录"),QString("是否确定删除%1条选定记录？").arg(QString::number(selected.size()/10)),QMessageBox::Yes,QMessageBox::No);
+            if(ok==QMessageBox::No)
+            {
+                return;
+            }
+            else
+            {
+                foreach(QModelIndex index,selected)
+                {
+                    if(index.column()==0)
+                    {
+                        QString date_temp=TableModel->data(index,Qt::DisplayRole).toString();
+                        QString temp=QString("ID = '%1'").arg(date_temp);
+                        DBcontrol->DeleteData(temp);
+                    }
+                }
+
+            }
+        }
+        TableViewInit("");
+        TreeWidgetInit();
+        */
 }
 /*
  * 初始化表结构
