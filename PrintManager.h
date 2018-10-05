@@ -10,7 +10,7 @@
 #include <QString>
 
 #include <QTextEdit>
-#include "database.h"
+#include "struct_define.h"
 class PrintManager : public QMainWindow
 {
     Q_OBJECT
@@ -19,7 +19,7 @@ public:
     ~PrintManager();
 
     void PrintDocument();
-    void CreateHTML(Alldata data);
+    void CreateHTML(InfoData data);
 private slots:
     void printPreview(QPrinter *printer);
 private:
