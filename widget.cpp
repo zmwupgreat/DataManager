@@ -18,14 +18,20 @@ void Widget::InitObject()
 {
     Inputwidget = new InputWidget;
     TableModel = new QSqlQueryModel;
+    loadingwindow = new LoadingForm;
+    process = new ProcessThread(this);
+    printer = new PrintManager;
     TableViewInit("");
     TreeWidgetInit();
 
     connect(ui->toolButtonInput,SIGNAL(clicked(bool)),SLOT(btnInput()));
     connect(ui->toolButtonexit,SIGNAL(clicked(bool)),SLOT(btnExit()));
     connect(ui->toolButtonDelete,SIGNAL(clicked(bool)),SLOT(btnDelete()));
+    connect(ui->toolButtonExport,SIGNAL(clicked(bool)),SLOT(btnExport()));
+    connect(ui->toolButtonPrinter,SIGNAL(clicked(bool)),SLOT(btnPrinter()));
     connect(Inputwidget,SIGNAL(sendRet(bool)),SLOT(handleInputResultMSG(bool)));
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),SLOT(TreeitemClick(QTreeWidgetItem*,int)));
+    connect(ui->tableView,SIGNAL(clicked(QModelIndex)),SLOT(TableitemClick()));
 
 }
 Widget::~Widget()
@@ -87,35 +93,17 @@ void Widget::btnExit()
  */
 void Widget::btnDelete()
 {
-    /*
+
         QItemSelectionModel *selection=ui->tableView->selectionModel();
         QModelIndexList selected=selection->selectedIndexes();
         if(selected.size()<=0)
         {
-            if(Treeitem_select)
-            {
-
-                int ok=QMessageBox::warning(this,QString("删除选定记录"),QString("是否确定删除当前日期下的%1条记录？").arg(QString::number(totalcount,10)),QMessageBox::Yes,QMessageBox::No);
-                if(ok==QMessageBox::No)
-                {
-                    return;
-                }
-                else
-                {
-                    QString temp=conditions.mid(4);
-                    data->deletedata(temp);
-                }
-
-            }
-            else
-            {
                 QMessageBox::information(this,QString("提示"),QString("请选择至少一条记录！"));
                 return;
-            }
         }
         else
         {
-            int ok=QMessageBox::warning(this,QString("删除选定记录"),QString("是否确定删除%1条选定记录？").arg(QString::number(selected.size()/10)),QMessageBox::Yes,QMessageBox::No);
+            int ok=QMessageBox::warning(this,QString("删除选定记录"),QString("是否确定删除%1条选定记录？").arg(QString::number(selected.size()/9)),QMessageBox::Yes,QMessageBox::No);
             if(ok==QMessageBox::No)
             {
                 return;
@@ -124,10 +112,11 @@ void Widget::btnDelete()
             {
                 foreach(QModelIndex index,selected)
                 {
-                    if(index.column()==0)
+                    if(index.column()== 0)
                     {
                         QString date_temp=TableModel->data(index,Qt::DisplayRole).toString();
-                        QString temp=QString("ID = '%1'").arg(date_temp);
+                        qDebug()<<date_temp;
+                        QString temp=QString("ID='%1'").arg(date_temp);
                         DBcontrol->DeleteData(temp);
                     }
                 }
@@ -136,7 +125,116 @@ void Widget::btnDelete()
         }
         TableViewInit("");
         TreeWidgetInit();
-        */
+}
+/*
+ * 打印槽
+ */
+void Widget::btnPrinter()
+{
+    QItemSelectionModel *selection=ui->tableView->selectionModel();
+    QModelIndexList selected=selection->selectedIndexes();
+    if(selected.size()==0)
+    {
+        QMessageBox::information(this,"提示","请选择一条数据!");
+        return;
+    }
+    printer->PrintDocument();
+}
+/*
+ * 导出槽
+ */
+void Widget::btnExport()
+{
+    QString excel_filename=QFileDialog::getSaveFileName(NULL,tr("保存excel文件"),"","Excel(*.xlsx *.xls)");
+
+    if(excel_filename.isEmpty())
+    {
+        QMessageBox::information(this,"提示","输入文件名");
+        return;
+    }
+    else
+    {
+        loadingwindow->show();
+        connect(process,SIGNAL(send_startcmd(int)),this,SLOT(handleFinishMSG(int)));
+        process->SetProcess(EXPORTRUNNING);
+        process->SetFilename(excel_filename);
+
+        process->start();
+    }
+}
+/*
+ * 导出功能函数
+ */
+int Widget::ExportFunction(QString filename)
+{
+
+    excel=NULL;
+    workBooks=NULL;
+    workBook=NULL;
+    workSheet=NULL;
+    workSheets=NULL;
+    excel=new QAxObject("Excel.Application");//加载Excel驱动
+    excel->setProperty("Visible",false);
+    workBooks=excel->querySubObject("WorkBooks");
+    workBooks->dynamicCall("Add");
+    workBook=excel->querySubObject("ActiveWorkBook");
+    workSheets=workBook->querySubObject("Sheets");
+    workSheet=workBook->querySubObject("Sheets(int)",1);
+
+    QAxObject *cell=workSheet->querySubObject("Cells(int,int)",1,1);
+    cell->setProperty("Value","证件ID");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,2);
+    cell->setProperty("Value","姓名");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,3);
+    cell->setProperty("Value","录入时间");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,4);
+    cell->setProperty("Value","性别");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,5);
+    cell->setProperty("Value","民族");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,6);
+    cell->setProperty("Value","出生年月");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,7);
+    cell->setProperty("Value","地址");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,8);
+    cell->setProperty("Value","签发单位");
+    cell->clear();
+    cell=workSheet->querySubObject("Cells(int,int)",1,9);
+    cell->setProperty("Value","照片地址");
+    cell->clear();
+
+    QVector<InfoData> Alldata = DBcontrol->GetAllData("");
+
+    for(int i = 0; i < Alldata.size(); i++)
+    {
+        for(int j = 1; j < 10; j++)
+        {
+            cell->clear();
+            cell = workSheet->querySubObject("Cells(int,int)",i+2,j);
+            switch (j) {
+            case 1:cell->setProperty("Value",Alldata.at(i).ID);break;
+            case 2:cell->setProperty("Value",Alldata.at(i).Name);break;
+            case 3:cell->setProperty("Value",Alldata.at(i).Time);break;
+            case 4:cell->setProperty("Value",Alldata.at(i).Gender);break;
+            case 5:cell->setProperty("Value",Alldata.at(i).Nation);break;
+            case 6:cell->setProperty("Value",Alldata.at(i).Birthtime);break;
+            case 7:cell->setProperty("Value",Alldata.at(i).Address);break;
+            case 8:cell->setProperty("Value",Alldata.at(i).Office);break;
+            case 9:cell->setProperty("Value",Alldata.at(i).Image);break;
+            }
+        }
+    }
+    workBook->dynamicCall("SaveAs(const QString&)",QDir::toNativeSeparators(filename));
+    workBook->dynamicCall("Close(Boolen)",false);
+    excel->dynamicCall("Quit(void)");
+
+    return EXPORTFINISH;
 }
 /*
  * 初始化表结构
@@ -287,7 +385,6 @@ void Widget::TreeitemClick(QTreeWidgetItem *item, int column)
             QString temp=item->text(column).mid(0,4);
             condition=QString("and Time LIKE '%1%'").arg(temp);
             TableViewInit(condition);
-            Treeitem_select=true;
         }
         else if(item->parent()->parent())
         {
@@ -297,7 +394,6 @@ void Widget::TreeitemClick(QTreeWidgetItem *item, int column)
             QString temp=temp_year+"/"+temp_month+"/"+temp_day;
             condition=QString("and Time LIKE '%1%'").arg(temp);
             TableViewInit(condition);
-            Treeitem_select=true;
         }
         else if(item->parent())
         {
@@ -306,8 +402,47 @@ void Widget::TreeitemClick(QTreeWidgetItem *item, int column)
             QString temp=temp_year+"/"+temp_month;
             condition=QString("and Time LIKE '%1%'").arg(temp);
             TableViewInit(condition);
-            Treeitem_select=true;
         }
+}
+/*
+ * 表节点对应槽
+ */
+void Widget::TableitemClick()
+{
+    int row = ui->tableView->currentIndex().row();
+    ui->labelID->setText(TableModel->data(TableModel->index(row,0),Qt::DisplayRole).toString());
+    ui->labelname->setText(TableModel->data(TableModel->index(row,1),Qt::DisplayRole).toString());
+    ui->labelgender->setText(TableModel->data(TableModel->index(row,3),Qt::DisplayRole).toString());
+    ui->labelbirth->setText(TableModel->data(TableModel->index(row,5),Qt::DisplayRole).toString());
+    ui->labeladdress->setText(TableModel->data(TableModel->index(row,6),Qt::DisplayRole).toString());
+    QImage photo;
+    photo.load(TableModel->data(TableModel->index(row,8),Qt::DisplayRole).toString());
+    photo = photo.scaled(ui->labelphoto->size(),Qt::KeepAspectRatio);
+    ui->labelphoto->setPixmap(QPixmap::fromImage(photo));
+
+    InfoData data;
+    data.ID = TableModel->data(TableModel->index(row,0),Qt::DisplayRole).toString();
+    data.Name = TableModel->data(TableModel->index(row,1),Qt::DisplayRole).toString();
+    data.Time = TableModel->data(TableModel->index(row,2),Qt::DisplayRole).toString();
+    data.Gender = TableModel->data(TableModel->index(row,3),Qt::DisplayRole).toString();
+    data.Nation = TableModel->data(TableModel->index(row,4),Qt::DisplayRole).toString();
+    data.Birthtime = TableModel->data(TableModel->index(row,5),Qt::DisplayRole).toString();
+    data.Address = TableModel->data(TableModel->index(row,6),Qt::DisplayRole).toString();
+    data.Office = TableModel->data(TableModel->index(row,7),Qt::DisplayRole).toString();
+    data.Image = TableModel->data(TableModel->index(row,8),Qt::DisplayRole).toString();
+    printer->CreateHTML(data);
+}
+/*
+ * 接收线程完成信息槽
+ */
+void Widget::handleFinishMSG(int MSG)
+{
+    switch (MSG) {
+    case EXPORTFINISH:{
+        loadingwindow->close();
+        QMessageBox::information(this,QString("提示"),QString("导出到excel完成！"));
+    }break;
+    }
 }
 /*
  * 鼠标事件重写
@@ -329,4 +464,33 @@ void Widget::mouseReleaseEvent(QMouseEvent *e)
     int dx=e->globalX()-last.x();
     int dy=e->globalY()-last.y();
     move(x()+dx,y()+dy);
+}
+/*
+ * 线程类
+ */
+ProcessThread::ProcessThread(Widget *win)
+{
+    processStatus = PROCESSINIT;
+    this->win = win;
+}
+
+void ProcessThread::run()
+{
+    switch(processStatus)
+    {
+        case EXPORTRUNNING:
+            {
+                processStatus = PROCESSINIT;
+                emit send_startcmd(win->ExportFunction(filename));
+            }
+
+    }
+}
+void ProcessThread::SetFilename(QString filename)
+{
+    this->filename = filename;
+}
+void ProcessThread::SetProcess(int status)
+{
+    this->processStatus = status;
 }
