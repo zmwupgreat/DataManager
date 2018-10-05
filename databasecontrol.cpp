@@ -144,10 +144,48 @@ bool DataBaseControl::DeleteData(QString condition)
     QSqlQuery delquery;
     QString SQLstr = QString("delete from DATAMANAGER where ");
     SQLstr += condition;
-    bool ret = delquery.exec();
+    qDebug()<<SQLstr;
+    bool ret = delquery.exec(SQLstr);
     DataBase.close();
     if(!ret)
         return false;
     else
         return true;
+}
+/*
+ * 获取所有数据
+ */
+QVector<InfoData> DataBaseControl::GetAllData(QString condition)
+{
+    if(!DataBase.isOpen())
+        DataBase.open();
+    QVector<InfoData> Alldata;
+    QSqlQuery selectquery;
+    QString SQLstr = QString("select * from DATAMANAGER where 1=1 ");
+    SQLstr += condition;
+    SQLstr += "order by Time";
+    selectquery.exec(SQLstr);
+    if(!selectquery.first())
+    {
+        return Alldata;
+    }
+    while(true)
+    {
+        InfoData infodata;
+        infodata.ID = selectquery.value(0).toString();
+        infodata.Name = selectquery.value(1).toString();
+        infodata.Time = selectquery.value(2).toString();
+        infodata.Gender = selectquery.value(3).toString();
+        infodata.Nation = selectquery.value(4).toString();
+        infodata.Birthtime = selectquery.value(5).toString();
+        infodata.Address  = selectquery.value(6).toString();
+        infodata.Office = selectquery.value(7).toString();
+        infodata.Image = selectquery.value(8).toString();
+        Alldata.append(infodata);
+        if(!selectquery.next())
+          {
+            break;
+          }
+    }
+    return Alldata;
 }

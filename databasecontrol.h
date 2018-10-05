@@ -9,6 +9,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlQueryModel>
 #include <QVector>
+#include <QDebug>
 
 #define DATABASEPATH "../../data/database/database.db"
 class DataBaseControl
@@ -20,7 +21,8 @@ public:
     bool SelectallData(QSqlQueryModel *model, QString condition,int limitIndex); //根据条件查询所有数据
     bool DeleteData(QString condition); //根据条件删除数据
     bool InsertData(InfoData infodata); //插入数据库
-    QVector<QString> getTimedata();
+    QVector<QString> getTimedata();//获取时间
+    QVector<InfoData> GetAllData(QString condition);
     //单例模式声明数据库类
     static DataBaseControl* GetDatabase()
     {
