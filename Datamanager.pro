@@ -7,7 +7,12 @@
 QT       += core gui
 QT       += sql
 QT       += axcontainer
+QT       += printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+LIBS += $$PWD/Libs/zip/quazip/quazip.lib
+INCLUDEPATH += Libs/zip/quazip
+INCLUDEPATH += Libs/zip/zlib
 
 TARGET = Datamanager
 TEMPLATE = app
@@ -27,12 +32,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         widget.cpp \
     databasecontrol.cpp \
-    inputwidget.cpp
+    inputwidget.cpp \
+    loadingform.cpp \
+    PrintManager.cpp \
+    searchform.cpp
 
 HEADERS  += widget.h \
     struct_define.h \
     databasecontrol.h \
-    inputwidget.h
+    inputwidget.h \
+    loadingform.h \
+    PrintManager.h \
+    searchform.h
 
 FORMS    += widget.ui \
-    inputwidget.ui
+    inputwidget.ui \
+    loadingform.ui \
+    searchform.ui

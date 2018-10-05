@@ -248,6 +248,7 @@ Makefile: ..\Datamanager.pro F:\Qt\5.8\msvc2015\mkspecs\win32-msvc2015\qmake.con
 		F:\Qt\5.8\msvc2015\lib\qtmain.prl \
 		F:\Qt\5.8\msvc2015\lib\Qt5AxContainer.prl \
 		F:\Qt\5.8\msvc2015\lib\Qt5AxBase.prl \
+		F:\Qt\5.8\msvc2015\lib\Qt5PrintSupport.prl \
 		F:\Qt\5.8\msvc2015\lib\Qt5Widgets.prl \
 		F:\Qt\5.8\msvc2015\lib\Qt5Gui.prl \
 		F:\Qt\5.8\msvc2015\lib\Qt5Sql.prl \
@@ -428,6 +429,7 @@ F:\Qt\5.8\msvc2015\mkspecs\features\lex.prf:
 F:\Qt\5.8\msvc2015\lib\qtmain.prl:
 F:\Qt\5.8\msvc2015\lib\Qt5AxContainer.prl:
 F:\Qt\5.8\msvc2015\lib\Qt5AxBase.prl:
+F:\Qt\5.8\msvc2015\lib\Qt5PrintSupport.prl:
 F:\Qt\5.8\msvc2015\lib\Qt5Widgets.prl:
 F:\Qt\5.8\msvc2015\lib\Qt5Gui.prl:
 F:\Qt\5.8\msvc2015\lib\Qt5Sql.prl:
