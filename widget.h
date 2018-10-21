@@ -21,6 +21,7 @@
 #include "struct_define.h"
 #include "inputwidget.h"
 #include "PrintManager.h"
+#include "searchform.h"
 #define PROCESSINIT 0
 #define EXPORTRUNNING 1
 #define IMPORTRUNNING 2
@@ -58,6 +59,8 @@ public slots:
     void btnDelete();//删除槽
     void btnExport();//导出槽
     void btnPrinter();//打印槽
+    void btnSearch();//查询槽
+    void handleConditionMSG(QString condition);//接收查询条件
     void TreeitemClick(QTreeWidgetItem *item, int column);//点击树节点相应槽
     void TableitemClick();//点击表节点对应槽
     void handleFinishMSG(int MSG); //接收线程结束信息
@@ -77,12 +80,13 @@ private:
     LoadingForm *loadingwindow;
     ProcessThread *process;
     PrintManager *printer;
+    SearchForm *searchwidget;
 
 
 protected://重写鼠标事件，使窗口可移动
-        void mousePressEvent(QMouseEvent *e);
-        void mouseMoveEvent(QMouseEvent *e);
-        void mouseReleaseEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseMoveEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 };
 /*
  * 执行线程

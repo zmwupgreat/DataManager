@@ -30,7 +30,7 @@ public:
     QLabel *labelphoto;
     QLabel *label_2;
     QToolButton *toolButtonInput;
-    QToolButton *toolButton_8;
+    QToolButton *toolButtonSearch;
     QToolButton *toolButtonDelete;
     QToolButton *toolButton_10;
     QToolButton *toolButton_11;
@@ -70,9 +70,9 @@ public:
         toolButtonInput = new QToolButton(groupBox);
         toolButtonInput->setObjectName(QStringLiteral("toolButtonInput"));
         toolButtonInput->setGeometry(QRect(0, 60, 141, 51));
-        toolButton_8 = new QToolButton(groupBox);
-        toolButton_8->setObjectName(QStringLiteral("toolButton_8"));
-        toolButton_8->setGeometry(QRect(140, 60, 141, 51));
+        toolButtonSearch = new QToolButton(groupBox);
+        toolButtonSearch->setObjectName(QStringLiteral("toolButtonSearch"));
+        toolButtonSearch->setGeometry(QRect(140, 60, 141, 51));
         toolButtonDelete = new QToolButton(groupBox);
         toolButtonDelete->setObjectName(QStringLiteral("toolButtonDelete"));
         toolButtonDelete->setGeometry(QRect(280, 60, 141, 51));
@@ -146,7 +146,7 @@ public:
         labelphoto->setText(QString());
         label_2->setText(QApplication::translate("Widget", "\346\225\260\346\215\256\347\256\241\347\220\206\347\263\273\347\273\237", Q_NULLPTR));
         toolButtonInput->setText(QApplication::translate("Widget", "\350\276\223\345\205\245\346\225\260\346\215\256", Q_NULLPTR));
-        toolButton_8->setText(QApplication::translate("Widget", "\346\237\245\350\257\242", Q_NULLPTR));
+        toolButtonSearch->setText(QApplication::translate("Widget", "\346\237\245\350\257\242", Q_NULLPTR));
         toolButtonDelete->setText(QApplication::translate("Widget", "\345\210\240\351\231\244", Q_NULLPTR));
         toolButton_10->setText(QApplication::translate("Widget", "\345\257\274\345\205\245", Q_NULLPTR));
         toolButton_11->setText(QApplication::translate("Widget", "\345\244\207\344\273\275", Q_NULLPTR));

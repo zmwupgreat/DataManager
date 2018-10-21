@@ -73,7 +73,7 @@
      <string>输入数据</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_8">
+   <widget class="QToolButton" name="toolButtonSearch">
     <property name="geometry">
      <rect>
       <x>140</x>

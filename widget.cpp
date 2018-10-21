@@ -21,6 +21,7 @@ void Widget::InitObject()
     loadingwindow = new LoadingForm;
     process = new ProcessThread(this);
     printer = new PrintManager;
+    searchwidget = new SearchForm;
     TableViewInit("");
     TreeWidgetInit();
 
@@ -29,6 +30,8 @@ void Widget::InitObject()
     connect(ui->toolButtonDelete,SIGNAL(clicked(bool)),SLOT(btnDelete()));
     connect(ui->toolButtonExport,SIGNAL(clicked(bool)),SLOT(btnExport()));
     connect(ui->toolButtonPrinter,SIGNAL(clicked(bool)),SLOT(btnPrinter()));
+    connect(ui->toolButtonSearch,SIGNAL(clicked(bool)),SLOT(btnSearch()));
+    connect(searchwidget,SIGNAL(sendCondition(QString)),SLOT(handleConditionMSG(QString)));
     connect(Inputwidget,SIGNAL(sendRet(bool)),SLOT(handleInputResultMSG(bool)));
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),SLOT(TreeitemClick(QTreeWidgetItem*,int)));
     connect(ui->tableView,SIGNAL(clicked(QModelIndex)),SLOT(TableitemClick()));
@@ -38,6 +41,10 @@ Widget::~Widget()
 {
     delete ui;
     delete Inputwidget;
+    delete loadingwindow;
+    delete process;
+    delete printer;
+    delete searchwidget;
 }
 /*
  * 检查数据目录是否完整
@@ -88,6 +95,22 @@ void Widget::btnExit()
     this->close();
     qApp->exit(0);
 }
+/*
+ * 查询槽
+ */
+void Widget::btnSearch()
+{
+    searchwidget->CleanEdit();
+    searchwidget->show();
+}
+/*
+ * 处理查询
+ */
+void Widget::handleConditionMSG(QString condition)
+{
+    TableViewInit(condition);
+}
+
 /*
  * 删除槽
  */

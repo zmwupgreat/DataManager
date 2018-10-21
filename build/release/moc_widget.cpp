@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    QByteArrayData data[16];
-    char stringdata0[159];
+    QByteArrayData data[19];
+    char stringdata0[198];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,18 +40,22 @@ QT_MOC_LITERAL(5, 42, 7), // "btnExit"
 QT_MOC_LITERAL(6, 50, 9), // "btnDelete"
 QT_MOC_LITERAL(7, 60, 9), // "btnExport"
 QT_MOC_LITERAL(8, 70, 10), // "btnPrinter"
-QT_MOC_LITERAL(9, 81, 13), // "TreeitemClick"
-QT_MOC_LITERAL(10, 95, 16), // "QTreeWidgetItem*"
-QT_MOC_LITERAL(11, 112, 4), // "item"
-QT_MOC_LITERAL(12, 117, 6), // "column"
-QT_MOC_LITERAL(13, 124, 14), // "TableitemClick"
-QT_MOC_LITERAL(14, 139, 15), // "handleFinishMSG"
-QT_MOC_LITERAL(15, 155, 3) // "MSG"
+QT_MOC_LITERAL(9, 81, 9), // "btnSearch"
+QT_MOC_LITERAL(10, 91, 18), // "handleConditionMSG"
+QT_MOC_LITERAL(11, 110, 9), // "condition"
+QT_MOC_LITERAL(12, 120, 13), // "TreeitemClick"
+QT_MOC_LITERAL(13, 134, 16), // "QTreeWidgetItem*"
+QT_MOC_LITERAL(14, 151, 4), // "item"
+QT_MOC_LITERAL(15, 156, 6), // "column"
+QT_MOC_LITERAL(16, 163, 14), // "TableitemClick"
+QT_MOC_LITERAL(17, 178, 15), // "handleFinishMSG"
+QT_MOC_LITERAL(18, 194, 3) // "MSG"
 
     },
     "Widget\0btnInput\0\0handleInputResultMSG\0"
     "ret\0btnExit\0btnDelete\0btnExport\0"
-    "btnPrinter\0TreeitemClick\0QTreeWidgetItem*\0"
+    "btnPrinter\0btnSearch\0handleConditionMSG\0"
+    "condition\0TreeitemClick\0QTreeWidgetItem*\0"
     "item\0column\0TableitemClick\0handleFinishMSG\0"
     "MSG"
 };
@@ -63,7 +67,7 @@ static const uint qt_meta_data_Widget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,15 +75,17 @@ static const uint qt_meta_data_Widget[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   59,    2, 0x0a /* Public */,
-       3,    1,   60,    2, 0x0a /* Public */,
-       5,    0,   63,    2, 0x0a /* Public */,
-       6,    0,   64,    2, 0x0a /* Public */,
-       7,    0,   65,    2, 0x0a /* Public */,
-       8,    0,   66,    2, 0x0a /* Public */,
-       9,    2,   67,    2, 0x0a /* Public */,
-      13,    0,   72,    2, 0x0a /* Public */,
-      14,    1,   73,    2, 0x0a /* Public */,
+       1,    0,   69,    2, 0x0a /* Public */,
+       3,    1,   70,    2, 0x0a /* Public */,
+       5,    0,   73,    2, 0x0a /* Public */,
+       6,    0,   74,    2, 0x0a /* Public */,
+       7,    0,   75,    2, 0x0a /* Public */,
+       8,    0,   76,    2, 0x0a /* Public */,
+       9,    0,   77,    2, 0x0a /* Public */,
+      10,    1,   78,    2, 0x0a /* Public */,
+      12,    2,   81,    2, 0x0a /* Public */,
+      16,    0,   86,    2, 0x0a /* Public */,
+      17,    1,   87,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -88,9 +94,11 @@ static const uint qt_meta_data_Widget[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 10, QMetaType::Int,   11,   12,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   15,
+    QMetaType::Void, QMetaType::QString,   11,
+    QMetaType::Void, 0x80000000 | 13, QMetaType::Int,   14,   15,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   18,
 
        0        // eod
 };
@@ -107,9 +115,11 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 3: _t->btnDelete(); break;
         case 4: _t->btnExport(); break;
         case 5: _t->btnPrinter(); break;
-        case 6: _t->TreeitemClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 7: _t->TableitemClick(); break;
-        case 8: _t->handleFinishMSG((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->btnSearch(); break;
+        case 7: _t->handleConditionMSG((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 8: _t->TreeitemClick((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 9: _t->TableitemClick(); break;
+        case 10: _t->handleFinishMSG((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -140,13 +150,13 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }
