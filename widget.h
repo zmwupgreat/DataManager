@@ -30,9 +30,8 @@
 #define BACKUPRUNNING 3
 
 #define EXPORTFINISH 4
-#define IMPORTFINISH 5
-#define BACKUPFINISH 6
-#define BACKUPWRONG 7
+#define BACKUPFINISH 5
+#define BACKUPWRONG 6
 
 class ProcessThread;
 

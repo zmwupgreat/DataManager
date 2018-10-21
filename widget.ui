@@ -99,23 +99,10 @@
      <string>删除</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_10">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>60</y>
-      <width>141</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>导入</string>
-    </property>
-   </widget>
    <widget class="QToolButton" name="toolButtonBackup">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>560</x>
       <y>60</y>
       <width>141</width>
       <height>51</height>
@@ -128,7 +115,7 @@
    <widget class="QToolButton" name="toolButtonExport">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>420</x>
       <y>60</y>
       <width>141</width>
       <height>51</height>
@@ -154,7 +141,7 @@
    <widget class="QToolButton" name="toolButtonPrinter">
     <property name="geometry">
      <rect>
-      <x>840</x>
+      <x>700</x>
       <y>60</y>
       <width>141</width>
       <height>51</height>

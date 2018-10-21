@@ -22,6 +22,7 @@ public:
     bool DeleteData(QString condition); //根据条件删除数据
     bool InsertData(InfoData infodata); //插入数据库
     void CloseDB();
+    void RemoveDB();
     QVector<QString> getTimedata();//获取时间
     QVector<InfoData> GetAllData(QString condition);
     //单例模式声明数据库类

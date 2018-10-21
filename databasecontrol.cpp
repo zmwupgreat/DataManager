@@ -197,3 +197,4 @@ void DataBaseControl::CloseDB()
     if(DataBase.isOpen())
         DataBase.close();
 }
+

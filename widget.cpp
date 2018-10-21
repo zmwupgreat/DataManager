@@ -287,6 +287,7 @@ int Widget::BackupFunction(QString filename)
     else
         return BACKUPWRONG;
 }
+
 /*
  * 初始化表结构
  */
