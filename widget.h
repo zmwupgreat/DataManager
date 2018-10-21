@@ -22,6 +22,8 @@
 #include "inputwidget.h"
 #include "PrintManager.h"
 #include "searchform.h"
+#include "JlCompress.h"
+#include "zip.h"
 #define PROCESSINIT 0
 #define EXPORTRUNNING 1
 #define IMPORTRUNNING 2
@@ -30,6 +32,7 @@
 #define EXPORTFINISH 4
 #define IMPORTFINISH 5
 #define BACKUPFINISH 6
+#define BACKUPWRONG 7
 
 class ProcessThread;
 
@@ -51,6 +54,7 @@ public:
     void deleteTreeItem();//删除所有树节点
     void TreewidgetIteminit();//根据数据库时间生成树节点
     int ExportFunction(QString filename);//导出功能函数
+    int BackupFunction(QString filename);//备份函数
 
 public slots:
     void btnInput();//添加信息槽
@@ -60,6 +64,7 @@ public slots:
     void btnExport();//导出槽
     void btnPrinter();//打印槽
     void btnSearch();//查询槽
+    void btnbackup();//备份槽
     void handleConditionMSG(QString condition);//接收查询条件
     void TreeitemClick(QTreeWidgetItem *item, int column);//点击树节点相应槽
     void TableitemClick();//点击表节点对应槽

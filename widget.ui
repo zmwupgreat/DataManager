@@ -112,7 +112,7 @@
      <string>导入</string>
     </property>
    </widget>
-   <widget class="QToolButton" name="toolButton_11">
+   <widget class="QToolButton" name="toolButtonBackup">
     <property name="geometry">
      <rect>
       <x>700</x>

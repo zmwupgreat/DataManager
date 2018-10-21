@@ -33,7 +33,7 @@ public:
     QToolButton *toolButtonSearch;
     QToolButton *toolButtonDelete;
     QToolButton *toolButton_10;
-    QToolButton *toolButton_11;
+    QToolButton *toolButtonBackup;
     QToolButton *toolButtonExport;
     QToolButton *toolButtonexit;
     QToolButton *toolButtonPrinter;
@@ -79,9 +79,9 @@ public:
         toolButton_10 = new QToolButton(groupBox);
         toolButton_10->setObjectName(QStringLiteral("toolButton_10"));
         toolButton_10->setGeometry(QRect(420, 60, 141, 51));
-        toolButton_11 = new QToolButton(groupBox);
-        toolButton_11->setObjectName(QStringLiteral("toolButton_11"));
-        toolButton_11->setGeometry(QRect(700, 60, 141, 51));
+        toolButtonBackup = new QToolButton(groupBox);
+        toolButtonBackup->setObjectName(QStringLiteral("toolButtonBackup"));
+        toolButtonBackup->setGeometry(QRect(700, 60, 141, 51));
         toolButtonExport = new QToolButton(groupBox);
         toolButtonExport->setObjectName(QStringLiteral("toolButtonExport"));
         toolButtonExport->setGeometry(QRect(560, 60, 141, 51));
@@ -149,7 +149,7 @@ public:
         toolButtonSearch->setText(QApplication::translate("Widget", "\346\237\245\350\257\242", Q_NULLPTR));
         toolButtonDelete->setText(QApplication::translate("Widget", "\345\210\240\351\231\244", Q_NULLPTR));
         toolButton_10->setText(QApplication::translate("Widget", "\345\257\274\345\205\245", Q_NULLPTR));
-        toolButton_11->setText(QApplication::translate("Widget", "\345\244\207\344\273\275", Q_NULLPTR));
+        toolButtonBackup->setText(QApplication::translate("Widget", "\345\244\207\344\273\275", Q_NULLPTR));
         toolButtonExport->setText(QApplication::translate("Widget", "\345\257\274\345\207\272", Q_NULLPTR));
         toolButtonexit->setText(QApplication::translate("Widget", "\351\200\200\345\207\272", Q_NULLPTR));
         toolButtonPrinter->setText(QApplication::translate("Widget", "\346\211\223\345\215\260", Q_NULLPTR));

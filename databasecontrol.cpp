@@ -189,3 +189,11 @@ QVector<InfoData> DataBaseControl::GetAllData(QString condition)
     }
     return Alldata;
 }
+/*
+ * 关闭数据库
+ */
+void DataBaseControl::CloseDB()
+{
+    if(DataBase.isOpen())
+        DataBase.close();
+}

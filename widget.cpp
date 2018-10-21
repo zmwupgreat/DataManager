@@ -25,12 +25,14 @@ void Widget::InitObject()
     TableViewInit("");
     TreeWidgetInit();
 
+    connect(process,SIGNAL(send_startcmd(int)),this,SLOT(handleFinishMSG(int)));
     connect(ui->toolButtonInput,SIGNAL(clicked(bool)),SLOT(btnInput()));
     connect(ui->toolButtonexit,SIGNAL(clicked(bool)),SLOT(btnExit()));
     connect(ui->toolButtonDelete,SIGNAL(clicked(bool)),SLOT(btnDelete()));
     connect(ui->toolButtonExport,SIGNAL(clicked(bool)),SLOT(btnExport()));
     connect(ui->toolButtonPrinter,SIGNAL(clicked(bool)),SLOT(btnPrinter()));
     connect(ui->toolButtonSearch,SIGNAL(clicked(bool)),SLOT(btnSearch()));
+    connect(ui->toolButtonBackup,SIGNAL(clicked(bool)),SLOT(btnbackup()));
     connect(searchwidget,SIGNAL(sendCondition(QString)),SLOT(handleConditionMSG(QString)));
     connect(Inputwidget,SIGNAL(sendRet(bool)),SLOT(handleInputResultMSG(bool)));
     connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),SLOT(TreeitemClick(QTreeWidgetItem*,int)));
@@ -178,7 +180,7 @@ void Widget::btnExport()
     else
     {
         loadingwindow->show();
-        connect(process,SIGNAL(send_startcmd(int)),this,SLOT(handleFinishMSG(int)));
+
         process->SetProcess(EXPORTRUNNING);
         process->SetFilename(excel_filename);
 
@@ -258,6 +260,32 @@ int Widget::ExportFunction(QString filename)
     excel->dynamicCall("Quit(void)");
 
     return EXPORTFINISH;
+}
+/*
+ * 备份槽
+ */
+void Widget::btnbackup()
+{
+    DBcontrol->CloseDB();
+    QString filename = QFileDialog::getExistingDirectory(this,"Backup Data",QDir::currentPath());
+    QDateTime time = QDateTime::currentDateTime();
+    filename += "/"+time.toString("yyyy-MM-dd-hhmmss")+"-backup.zip";
+    loadingwindow->show();
+    process->SetProcess(BACKUPRUNNING);
+    process->SetFilename(filename);
+
+    process->start();
+}
+/*
+ * 备份函数
+ */
+int Widget::BackupFunction(QString filename)
+{
+    bool ret = JlCompress::compressDir(filename,"../../data");
+    if(ret)
+        return BACKUPFINISH;
+    else
+        return BACKUPWRONG;
 }
 /*
  * 初始化表结构
@@ -465,6 +493,14 @@ void Widget::handleFinishMSG(int MSG)
         loadingwindow->close();
         QMessageBox::information(this,QString("提示"),QString("导出到excel完成！"));
     }break;
+    case BACKUPFINISH:{
+        loadingwindow->close();
+        QMessageBox::information(this,QString("提示"),QString("备份完成！"));
+    }break;
+    case BACKUPWRONG:{
+        loadingwindow->close();
+        QMessageBox::information(this,QString("提示"),QString("备份失败！"));
+    }break;
     }
 }
 /*
@@ -501,11 +537,16 @@ void ProcessThread::run()
 {
     switch(processStatus)
     {
-        case EXPORTRUNNING:
-            {
-                processStatus = PROCESSINIT;
-                emit send_startcmd(win->ExportFunction(filename));
-            }
+    case EXPORTRUNNING:
+    {
+        processStatus = PROCESSINIT;
+        emit send_startcmd(win->ExportFunction(filename));
+    }break;
+    case BACKUPRUNNING:
+    {
+        processStatus = PROCESSINIT;
+        emit send_startcmd(win->BackupFunction(filename));
+    }break;
 
     }
 }
